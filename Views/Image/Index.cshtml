@@ -1,0 +1,98 @@
+@model IEnumerable<ReCAPTCHA.Models.ImageModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@using System
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ImageId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ImageId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ImageId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table class="images">
+
+
+    <tbody>
+
+        @for (int i = 0; i < 2; i += 1)
+        {
+            Random rnd1 = new Random();
+            Random rnd2 = new Random();
+            <tr>
+
+                <td>
+                    <button type="reset">
+                        <img src="@("/Image/" + Model.ElementAt(rnd1.Next(0,5)).ImageName)" asp-append-version="true" width="250px" height="250px" />
+                    </button>
+
+                </td>
+                <td>
+                    <button type="reset">
+                        <img src="@("/Image/" + Model.ElementAt(rnd2.Next(0,5)).ImageName)" asp-append-version="true" width="250px" height="250px" />
+                    </button>
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+
+</table>
+<script language="C#" runat="server">Random rnd = new Random()
+    string imagePath = "/Image/" + Model.ElementAt(rnd.Next(0, 5)).ImageName)</script>
+
+<form id="form1" runat="server">
+    <div>
+        <asp:ImageButton id="Button1"
+                         runat="server"
+                         AlternateText="Image Button 1"
+                         ImageUrl=imagePath />
+
+    </div>
+</form>
